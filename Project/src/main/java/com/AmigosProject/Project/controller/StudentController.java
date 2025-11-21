@@ -1,6 +1,7 @@
 package com.AmigosProject.Project.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,11 @@ public class StudentController {
         return new ResponseEntity<>(service.getAllStudents(), HttpStatus.OK);
     }
 
+    @GetMapping("/students/{id}")
+    public ResponseEntity<Optional<student>> getStudentById(@PathVariable UUID id){
+        return new ResponseEntity<>(service.getStudentById(id),HttpStatus.FOUND);
+    }
+
     @PostMapping("/students")
     public ResponseEntity<Void> addStudent(@RequestBody student newStudent){
         service.addStudent(newStudent);
@@ -42,6 +49,10 @@ public class StudentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Void> updateStudent(@PathVariable UUID id, @RequestBody student updateStud){
+        service.updateStudent(id,updateStud);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
