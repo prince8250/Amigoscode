@@ -12,5 +12,6 @@ import com.AmigosProject.Project.model.student;
 public interface studentRepo extends JpaRepository<student, UUID>{
     //select * from student where email = ?
     Optional <student> findByEmail(String email);
-    
+
+    boolean existsByEmail(String email);
 }

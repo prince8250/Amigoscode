@@ -57,8 +57,17 @@ public class studentService {
         }
 
         String newEmail=updateStud.getEmail();
+
         if(updateStud.getEmail() == null || updateStud.getEmail().isEmpty()){
             throw new IllegalStateException("Email field is required!");
+        }
+        
+        if (newEmail.equals(existingStud.getEmail())) {
+            //basically code that will ignore it and leave the email as it is
+            existingStud.setEmail(newEmail);
+        }
+        else if(repo.existsByEmail(newEmail)){
+            throw new IllegalStateException("Email is already in use.");
         }
 
         LocalDate newDob=updateStud.getDob();
